@@ -155,9 +155,14 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
-  return str.replace(value, '');
-}
+  const index = str.indexOf(value);
 
+  if (index === -1) {
+    return str;
+  }
+
+  return str.slice(0, index) + str.slice(index + value.length);
+}
 /**
  * Remove the last occurrence of a substring from a string.
  *
@@ -171,13 +176,13 @@ function removeFirstOccurrences(str, value) {
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeLastOccurrences(str, value) {
-  // Find the last index of the substring
-  const lastIndex = str.lastIndexOf(value);
+  const index = str.lastIndexOf(value);
 
-  // If the substring is found, remove it using slice
-  if (lastIndex !== -1) {
-    return str.slice(0, lastIndex) + str.slice(lastIndex + value.length);
+  if (index === -1) {
+    return str;
   }
+
+  return str.slice(0, index) + str.slice(index + value.length);
 }
 
 /**
@@ -200,7 +205,7 @@ function sumOfCodes(str) {
 
   // Calculate the sum of character codes
   let sum = 0;
-  for (let i = 0; i < str.length; i+=) {
+  for (let i = 0; i < str.length; i += 1) {
     sum += str.charCodeAt(i);
   }
   return sum;
@@ -250,16 +255,9 @@ function endsWith(str, substr) {
  *   formatTime(0, 0) => "00:00"
  */
 function formatTime(minutes, seconds) {
-  // Ensure that minutes and seconds are non-negative integers
-  minutes = Math.max(0, Math.floor(minutes));
-  seconds = Math.max(0, Math.floor(seconds));
-
-  // Use padStart to format minutes and seconds as two digits
-  const formattedMinutes = String(minutes).padStart(2, '0');
-  const formattedSeconds = String(seconds).padStart(2, '0');
-
-  // Combine the formatted minutes and seconds into the "mm:ss" format
-  return `${formattedMinutes}:${formattedSeconds}`;
+  const min = minutes.toString().padStart(2, '0');
+  const sec = seconds.toString().padStart(2, '0');
+  return min.concat(':', sec);
 }
 
 /**
